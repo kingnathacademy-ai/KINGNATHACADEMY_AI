@@ -4,10 +4,10 @@ from google.genai import types
 import requests
 import os
 # Automatically bridge Render's environment variables into Streamlit secrets
-if "GOOGLE_API_KEY" in os.environ and "GOOGLE_API_KEY" not in st.secrets:
-    st.secrets["GOOGLE_API_KEY"] = os.environ["GOOGLE_API_KEY"]
-if "PAYSTACK_SECRET_KEY" in os.environ and "PAYSTACK_SECRET_KEY" not in st.secrets:
-    st.secrets["PAYSTACK_SECRET_KEY"] = os.environ["PAYSTACK_SECRET_KEY"]
+if "GOOGLEAPIKEY" in os.environ and "GOOGLEAPIKEY" not in st.secrets:
+    st.secrets["GOOGLEAPIKEY"] = os.environ["GOOGLEAPIKEY"]
+if "PAYSTACKSECRETKEY" in os.environ and "PAYSTACKSECRETKEY" not in st.secrets:
+    st.secrets["PAYSTACKSECRETKEY"] = os.environ["PAYSTACKSECRETKEY"]
 import uuid
 st.markdown(
     """
@@ -47,7 +47,7 @@ st.caption("Official Educational Intelligence Engine — Powered by KNA Core")
 # =====================================================================
 # 2. ENCRYPTED PAYMENT INTEGRATION TOKENS
 # =====================================================================
-GOOGLE_API_KEY = st.secrets["GOOGLE API KEY"] # Paste your Google AI Studio Key here
+GOOGLEAPIKEY = st.secrets["GOOGLEAPIKEY"] # Paste your Google AI Studio Key here
 
 # Replace these strings with your official keys from ://paystack.com
 PAYSTACK_PUBLIC_KEY = pk_test_3a458555d53c5d8bfe36aa3cb9cd5a6508058160
@@ -57,7 +57,7 @@ PAYSTACK_SECRET_KEY = st.secrets["SECRET"]
 # 3. COMPONENT INSTANTIATION & PERSISTENCE MANAGEMENT
 # =====================================================================
 if "ai_client" not in st.session_state:
-    st.session_state.ai_client = genai.Client(api_key=GOOGLE_API_KEY)
+    st.session_state.ai_client = genai.Client(api_key=GOOGLEAPIKEY)
 
 client = st.session_state.ai_client
 
