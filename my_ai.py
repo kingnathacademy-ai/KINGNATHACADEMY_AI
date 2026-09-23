@@ -5,13 +5,29 @@ import streamlit as st
 from google import genai
 from google.genai import types
 from google.genai.errors import APIError
+
+# ==========================================
+# 🚀 BULLETPROOF RENDER TO STREAMLIT BRIDGE
+# ==========================================
+# This directly forces the keys into Streamlit's internal memory dictionary, 
+# completely bypassing the missing secrets.toml file check.
 if "GOOGLEAPIKEY" in os.environ:
-    st.secrets["GOOGLEAPIKEY"] = os.environ["GOOGLEAPIKEY"]
-    st.secrets["GOOGLEAPIKEY"] = os.environ["GOOGLEAPIKEY"]
+    # Initialize the internal secrets dictionary if it is empty
+    if not hasattr(st, "_secrets") or st._secrets is None:
+        st._secrets = {}
+    
+    # Map all variations your code might use
+    st._secrets["GOOGLEAPIKEY"] = os.environ["GOOGLEAPIKEY"]
+    st._secrets["GOOGLEAPIKEY"] = os.environ["GOOGLEAPIKEY"]
+    st._secrets["GOOGLEAPIKEY"] = os.environ["GOOGLEAPIKEY"]
 
 if "PAYSTACKSECRETKEY" in os.environ:
-    st.secrets["PAYSTACKSECRETKEY"] = os.environ["PAYSTACKSECRETKEY"]
-import uuid
+    if not hasattr(st, "_secrets") or st._secrets is None:
+        st._secrets = {}
+    st._secrets["PAYSTACKSECRETKEY"] = os.environ["PAYSTACKSECRETKEY"]
+
+# ==========================================
+# Your original code logic continues below...
 st.markdown(
     """
     <style>
