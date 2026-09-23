@@ -3,10 +3,12 @@ from google import genai
 from google.genai import types
 import requests
 import os
-# Automatically bridge Render's environment variables into Streamlit secrets
-if "GOOGLEAPIKEY" in os.environ and "GOOGLEAPIKEY" not in st.secrets:
+if "GOOGLEAPIKEY" in os.environ:
+    st.get_option._config_options = st.get_option._config_options or {}
     st.secrets["GOOGLEAPIKEY"] = os.environ["GOOGLEAPIKEY"]
-if "PAYSTACKSECRETKEY" in os.environ and "PAYSTACKSECRETKEY" not in st.secrets:
+    st.secrets["GOOGLEAPIKEY"] = os.environ["GOOGLEAPIKEY"]
+
+if "PAYSTACKSECRETKEY" in os.environ:
     st.secrets["PAYSTACKSECRETKEY"] = os.environ["PAYSTACKSECRETKEY"]
 import uuid
 st.markdown(
