@@ -6,7 +6,6 @@ from google import genai
 from google.genai import types
 from google.genai.errors import APIError
 if "GOOGLEAPIKEY" in os.environ:
-    st.get_option._config_options = st.get_option._config_options or {}
     st.secrets["GOOGLEAPIKEY"] = os.environ["GOOGLEAPIKEY"]
     st.secrets["GOOGLEAPIKEY"] = os.environ["GOOGLEAPIKEY"]
 
