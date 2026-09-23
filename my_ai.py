@@ -1,8 +1,10 @@
+import os
+import time
+import requests
 import streamlit as st
 from google import genai
 from google.genai import types
-import requests
-import os
+from google.genai.errors import APIError
 if "GOOGLEAPIKEY" in os.environ:
     st.get_option._config_options = st.get_option._config_options or {}
     st.secrets["GOOGLEAPIKEY"] = os.environ["GOOGLEAPIKEY"]
