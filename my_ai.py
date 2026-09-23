@@ -41,11 +41,11 @@ st.caption("Official Educational Intelligence Engine — Powered by KNA Core")
 # =====================================================================
 # 2. ENCRYPTED PAYMENT INTEGRATION TOKENS
 # =====================================================================
-GOOGLE_API_KEY = st.secrets["AQ.Ab8RN6ISa8VlrcdBVzC5oe2XrCNs0Z6_o8h6z-tLDYOEZeCYgg"] # Paste your Google AI Studio Key here
+GOOGLE_API_KEY = st.secrets["GOOGLE API KEY"] # Paste your Google AI Studio Key here
 
 # Replace these strings with your official keys from ://paystack.com
 PAYSTACK_PUBLIC_KEY = pk_test_3a458555d53c5d8bfe36aa3cb9cd5a6508058160
-PAYSTACK_SECRET_KEY = st.secrets["sk_test_3b7f51f87d2f4780ca8509d93370626094323635"]
+PAYSTACK_SECRET_KEY = st.secrets["SECRET"]
 
 # =====================================================================
 # 3. COMPONENT INSTANTIATION & PERSISTENCE MANAGEMENT
