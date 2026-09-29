@@ -85,7 +85,7 @@ GOOGLEAPIKEY = os.environ.get("RENDER_API_KEY")
 
 # Line 84 and below must look exactly like this:
 if not GOOGLEAPIKEY:
-    st.error("🔑 Google API Key is missing! Please configure "RENDER_API_KEY"under the Environment tab in your Render dashboard.")
+    st.error("🔑 Google API Key is missing! Please configure RENDER_API_KEY under the Environment tab in your Render dashboard.")
     st.stop()
 
 else:
