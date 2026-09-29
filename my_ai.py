@@ -11,7 +11,7 @@ from google.genai.errors import APIError
 # ==========================================
 # This directly forces the keys into Streamlit's internal memory dictionary, 
 # completely bypassing the missing secrets.toml file check.
-if "GOOGLEAPIKEY" in os.environ:
+if "RENDER_API_KEY" in os.environ:
     # Initialize the internal secrets dictionary if it is empty
     if not hasattr(st, "_secrets") or st._secrets is None:
         st._secrets = {}
