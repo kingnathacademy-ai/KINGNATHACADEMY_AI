@@ -70,10 +70,21 @@ st.caption("Official Educational Intelligence Engine — Powered by KNA Core")
 import os
 import streamlit as st
 
-# Completely bypass st.secrets and use Render's Environment variables directly
-RENDER_API_KEY = os.environ.get("RENDER_API_KEY")
+# 1. Look for the key in Render's environment variables first.
+# 2. If it's missing there, try falling back to st.secrets.
+# 3. If both fail, default to None.
+if "GOOGLEAPIKEY" in os.environ:
+    GOOGLEAPIKEY = os.environ["GOOGLEAPIKEY"]
+elif "GOOGLEAPIKEY" in st.secrets:
+    GOOGLEAPIKEY = st.secrets["GOOGLEAPIKEY"]
+else:
+    GOOGLEAPIKEY = None
 
+# Line 76: This will now run perfectly without throwing a NameError
 if not GOOGLEAPIKEY:
+    st.error("🔑 Google API Key is missing! Please configure GOOGLEAPIKEY in your Render Environment settings.")
+    st.stop()  # Prevents the rest of your AI engine from crashing further down
+
     st.error("Missing GOOGLEAPIKEY! Please add it to your Render Environment Variables.")
 # Replace these strings with your official keys from ://paystack.com
 PAYSTACK_PUBLIC_KEY = pk_test_3a458555d53c5d8bfe36aa3cb9cd5a6508058160
