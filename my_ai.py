@@ -67,8 +67,14 @@ st.caption("Official Educational Intelligence Engine — Powered by KNA Core")
 # =====================================================================
 # 2. ENCRYPTED PAYMENT INTEGRATION TOKENS
 # =====================================================================
-GOOGLEAPIKEY = st.secrets["GOOGLEAPIKEY"] # Paste your Google AI Studio Key here
+import os
+import streamlit as st
 
+# Completely bypass st.secrets and use Render's Environment variables directly
+RENDER_API_KEY = os.environ.get("RENDER_API_KEY")
+
+if not GOOGLEAPIKEY:
+    st.error("Missing GOOGLEAPIKEY! Please add it to your Render Environment Variables.")
 # Replace these strings with your official keys from ://paystack.com
 PAYSTACK_PUBLIC_KEY = pk_test_3a458555d53c5d8bfe36aa3cb9cd5a6508058160
 PAYSTACK_SECRET_KEY = st.secrets["SECRET"]
