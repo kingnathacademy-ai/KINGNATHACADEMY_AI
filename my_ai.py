@@ -17,9 +17,9 @@ if "GOOGLEAPIKEY" in os.environ:
         st._secrets = {}
     
     # Map all variations your code might use
-    st._secrets["GOOGLEAPIKEY"] = os.environ["GOOGLEAPIKEY"]
-    st._secrets["GOOGLEAPIKEY"] = os.environ["GOOGLEAPIKEY"]
-    st._secrets["GOOGLEAPIKEY"] = os.environ["GOOGLEAPIKEY"]
+    st._secrets["rnd_Apsdh9nELZUnEGDWkfgzm7CoGsIP"] = os.environ["rnd_Apsdh9nELZUnEGDWkfgzm7CoGsIP"]
+    st._secrets["rnd_Apsdh9nELZUnEGDWkfgzm7CoGsIP"] = os.environ["rnd_Apsdh9nELZUnEGDWkfgzm7CoGsIP"]
+    st._secrets["rnd_Apsdh9nELZUnEGDWkfgzm7CoGsIP"] = os.environ["rnd_Apsdh9nELZUnEGDWkfgzm7CoGsIP"]
 
 if "PAYSTACKSECRETKEY" in os.environ:
     if not hasattr(st, "_secrets") or st._secrets is None:
