@@ -74,9 +74,6 @@ import streamlit as st
 # 2. If it's missing there, try falling back to st.secrets.
 # 3. If both fail, default to None.
 if "GOOGLEAPIKEY" in os.environ:
-import os
-import streamlit as st
-
 # Look for the key exclusively in Render's environment variables
 GOOGLEAPIKEY = os.environ.get("RENDER_API_KEY")
 
