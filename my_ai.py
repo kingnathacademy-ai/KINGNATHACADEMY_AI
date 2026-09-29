@@ -19,8 +19,12 @@ if "RENDER_API_KEY" in os.environ:
 import os
 import streamlit as st
 
-# Look for a variable named "RENDER_API_KEY" instead of the raw token string
-st._secrets["RENDER_API_KEY"] = os.environ["RENDER_API_KEY"]
+import os
+import streamlit as st
+
+# Replace the crashing line with a safe fallback that won't throw a KeyError
+RENDER_API_KEY = os.environ.get("RENDER_API_KEY", "NOT_SET")
+
 
 if "PAYSTACKSECRETKEY" in os.environ:
     if not hasattr(st, "_secrets") or st._secrets is None:
