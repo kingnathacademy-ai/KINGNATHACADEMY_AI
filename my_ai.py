@@ -73,14 +73,18 @@ import streamlit as st
 # 1. Look for the key in Render's environment variables first.
 # 2. If it's missing there, try falling back to st.secrets.
 # 3. If both fail, default to None.
-if "GOOGLEAPIKEY" in os.environ:
+ "GOOGLEAPIKEY" in os.environ:
 # Look for the key exclusively in Render's environment variables
 GOOGLEAPIKEY = os.environ.get("RENDER_API_KEY")
 
-# Line 78: This will now run perfectly without touching the broken secrets file
+# --- REMOVE ANY STRAY "if" STATEMENTS ON OR AROUND LINE 76 ---
+
+# Ensure this line starts completely at the left margin (no spaces or tabs)
+GOOGLEAPIKEY = os.environ.get("RENDER_API_KEY")
+
 if not GOOGLEAPIKEY:
     st.error("🔑 Google API Key is missing! Please configure GOOGLEAPIKEY under the Environment tab in your Render dashboard.")
-    st.stop()  # Safely halts execution so the app displays a clean error message instead of crashing
+    st.stop()
 
 elif "GOOGLEAPIKEY" in st.secrets:
     GOOGLEAPIKEY = st.secrets["GOOGLEAPIKEY"]
