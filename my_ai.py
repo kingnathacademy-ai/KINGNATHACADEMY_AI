@@ -16,10 +16,11 @@ if "GOOGLEAPIKEY" in os.environ:
     if not hasattr(st, "_secrets") or st._secrets is None:
         st._secrets = {}
     
-    # Map all variations your code might use
-    st._secrets["rnd_Apsdh9nELZUnEGDWkfgzm7CoGsIP"] = os.environ["rnd_Apsdh9nELZUnEGDWkfgzm7CoGsIP"]
-    st._secrets["rnd_Apsdh9nELZUnEGDWkfgzm7CoGsIP"] = os.environ["rnd_Apsdh9nELZUnEGDWkfgzm7CoGsIP"]
-    st._secrets["rnd_Apsdh9nELZUnEGDWkfgzm7CoGsIP"] = os.environ["rnd_Apsdh9nELZUnEGDWkfgzm7CoGsIP"]
+import os
+import streamlit as st
+
+# Look for a variable named "RENDER_API_KEY" instead of the raw token string
+st._secrets["RENDER_API_KEY"] = os.environ["RENDER_API_KEY"]
 
 if "PAYSTACKSECRETKEY" in os.environ:
     if not hasattr(st, "_secrets") or st._secrets is None:
