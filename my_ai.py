@@ -5,6 +5,20 @@ import streamlit as st
 from google import genai
 from google.genai import types
 from google.genai.errors import APIError
+import os
+import streamlit as st
+from dotenv import load_dotenv
+
+# Load variables from the hidden .env file if it exists locally
+load_dotenv()
+
+# Safely look for the key (works locally via .env AND on Render via Environment tab)
+GOOGLEAPIKEY = os.environ.get("GOOGLEAPIKEY")
+
+if not GOOGLEAPIKEY:
+    st.error("🔑 Google API Key is missing! Please configure GOOGLEAPIKEY.")
+    st.stop()
+
 
 # ==========================================
 # 🚀 BULLETPROOF RENDER TO STREAMLIT BRIDGE
@@ -84,10 +98,10 @@ if not GOOGLEAPIKEY:
     st.error("🔑 Google API Key is missing! Please configure GOOGLEAPIKEY under the Environment tab in your Render dashboard.")
     st.stop()
 # Force the key directly into the code so Render doesn't block you
-GOOGLEAPIKEY = "AIzaSyYourActualGoogleKeyGoesHere"
+GOOGLEAPIKEY = ""
 
 # Leave this check here so the rest of your app stays happy
-if not GOOGLEAPIKEY or GOOGLEAPIKEY == "AIzaSyYourActualGoogleKeyGoesHere":
+if not GOOGLEAPIKEY or GOOGLEAPIKEY == "":
     # If you haven't replaced the placeholder text above, it shows the error
     pass 
 
