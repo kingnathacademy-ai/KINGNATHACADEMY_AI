@@ -8,9 +8,6 @@ if not GOOGLEAPIKEY:
     st.error("🔑 Google API Key is missing! Please configure GOOGLEAPIKEY under the Environment tab in your Render dashboard.")
     st.stop()
 
-# Load variables from the hidden .env file if it exists locally
-load_dotenv()
-
 # Safely look for the key (works locally via .env AND on Render via Environment tab)
 GOOGLEAPIKEY = os.environ.get("GOOGLEAPIKEY")
 
