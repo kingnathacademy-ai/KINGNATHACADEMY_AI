@@ -8,6 +8,10 @@ from google.genai.errors import APIError
 import os
 import streamlit as st
 from dotenv import load_dotenv
+git add requirements.txt
+git commit -m "Add python-dotenv to requirements"
+git push origin main
+
 
 # Load variables from the hidden .env file if it exists locally
 load_dotenv()
