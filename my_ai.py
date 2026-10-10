@@ -1,15 +1,12 @@
 import os
-import time
-import requests
 import streamlit as st
-from google import genai
-from google.genai import types
-from google.genai.errors import APIError
-import os
-import streamlit as st
-from dotenv import load_dotenv
 
+# Render reads this automatically from your Environment tab!
+GOOGLEAPIKEY = os.environ.get("GOOGLEAPIKEY")
 
+if not GOOGLEAPIKEY:
+    st.error("🔑 Google API Key is missing! Please configure GOOGLEAPIKEY under the Environment tab in your Render dashboard.")
+    st.stop()
 
 # Load variables from the hidden .env file if it exists locally
 load_dotenv()
