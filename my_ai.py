@@ -67,24 +67,57 @@ def resolve_google_api_key() -> str | None:
     return None
 
 GOOGLE_API_KEY = resolve_google_api_key()
+# =====================================================================
+# BULLETPROOF KEY & SECRET RESOLUTION (RENDER & STREAMLIT SAFE)
+# =====================================================================
+def safe_get_secret(key_name: str, default: str = "") -> str:
+    """
+    Safely retrieves a configuration key.
+    Checks os.environ (Render environment variables) first,
+    then safely probes st.secrets without crashing if secrets.toml is absent.
+    """
+    # 1. Check direct environment variables (Works on Render dashboard)
+    val = os.environ.get(key_name)
+    if val is not None and str(val).strip() != "" and str(val).strip() != "NOT_SET":
+        return str(val).strip()
 
-PAYSTACK_PUBLIC_KEY = os.environ.get(
+    # 2. Safely probe st.secrets with complete exception protection
+    try:
+        if hasattr(st, "secrets"):
+            sec = st.secrets
+            if sec is not None and key_name in sec:
+                v = sec[key_name]
+                if v is not None and str(v).strip():
+                    return str(v).strip()
+    except Exception:
+        # Silently catches StreamlitSecretNotFoundError and FileNotFoundError on Render
+        pass
+    except BaseException:
+        pass
+
+    return default
+
+
+def resolve_google_api_key() -> str | None:
+    """Safely retrieves the Google API Key across Render, .env, and Streamlit secrets."""
+    for candidate in ["GOOGLEAPIKEY", "GEMINI_API_KEY", "RENDER_API_KEY", "GOOGLE_API_KEY", "SECRET"]:
+        val = safe_get_secret(candidate, "")
+        if val:
+            return val
+    return None
+
+
+GOOGLE_API_KEY = resolve_google_api_key()
+
+# Paystack API Keys (Render environment variables take priority, test key fallback)
+PAYSTACK_PUBLIC_KEY = safe_get_secret(
     "PAYSTACK_PUBLIC_KEY",
-    st.secrets.get("PAYSTACK_PUBLIC_KEY", "pk_test_3a458555d53c5d8bfe36aa3cb9cd5a6508058160") if hasattr(st, "secrets") else "pk_test_3a458555d53c5d8bfe36aa3cb9cd5a6508058160"
+    "pk_test_3a458555d53c5d8bfe36aa3cb9cd5a6508058160"
 )
-PAYSTACK_SECRET_KEY = os.environ.get(
+PAYSTACK_SECRET_KEY = safe_get_secret(
     "PAYSTACKSECRETKEY",
-    st.secrets.get("PAYSTACKSECRETKEY", st.secrets.get("SECRET", "")) if hasattr(st, "secrets") else ""
+    safe_get_secret("PAYSTACK_SECRET_KEY", safe_get_secret("SECRET", ""))
 )
-
-# 3. SESSION STATE INITIALIZATION
-if "authenticated" not in st.session_state:
-    st.session_state.authenticated = False
-if "user_email" not in st.session_state:
-    st.session_state.user_email = ""
-if "is_premium" not in st.session_state:
-    st.session_state.is_premium = False
-if "paystack_ref" not in st.session_state:
     st.session_state.paystack_ref = None
 if "question_count" not in st.session_state:
     st.session_state.question_count = 0
